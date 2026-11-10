@@ -1,0 +1,212 @@
+erDiagram
+    USUARIO {
+        bigint id_usuario PK
+        string nombre "unico"
+        string email "unico"
+        string password_hash "null si entra con Google"
+        string rol "ADMIN | USER"
+        date fecha_nacimiento "NUEVO"
+        string pais "NUEVO, ISO 2 letras"
+        bigint id_equipo_favorito FK "NUEVO"
+        string riot_id "NUEVO, opcional"
+        boolean acepta_noticias "NUEVO"
+        string google_id "NUEVO"
+        datetime fecha_registro "NUEVO"
+        datetime ultimo_acceso "NUEVO"
+    }
+    EQUIPO_PRO {
+        bigint id_equipo_pro PK
+        string nombre "unico"
+        string siglas
+        string logo_url
+    }
+    GRUPO_LIGA {
+        bigint id_grupo PK
+        string nombre
+        string tipo "PUBLICO | PRIVADO"
+        string codigo_invitacion "unico"
+        decimal presupuesto_inicial
+        int max_participantes "NUEVO"
+        boolean es_global "NUEVO"
+        bigint id_creador FK
+        datetime fecha_creacion "NUEVO"
+    }
+    EQUIPO_FANTASY {
+        bigint id_equipo_fantasy PK
+        bigint id_usuario FK
+        bigint id_grupo FK
+        string nombre "NUEVO"
+        decimal dinero_disponible
+        decimal puntos_totales
+        datetime fecha_union "NUEVO"
+        bigint version "NUEVO, bloqueo optimista"
+    }
+    JUGADOR_REAL {
+        bigint id_jugador_real PK
+        string nickname "unico"
+        string nombre_real "NUEVO"
+        bigint id_equipo_pro FK "antes string equipo_pro"
+        string posicion "TOP | JNG | MID | ADC | SUP"
+        decimal valor_mercado
+        string foto_url "NUEVO"
+        string id_externo "NUEVO, Leaguepedia / Oracle's Elixir"
+        boolean bloqueado "NUEVO"
+        string motivo_bloqueo "NUEVO"
+    }
+    PLANTILLA_JUGADOR {
+        bigint id_plantilla PK
+        bigint id_equipo_fantasy FK
+        bigint id_jugador_real FK
+        string estado "TITULAR | BANQUILLO"
+        string posicion_slot "TOP..SUP | BANQUILLO_1 | BANQUILLO_2"
+        decimal precio_compra "NUEVO"
+        datetime fecha_fichaje "NUEVO"
+    }
+    TRANSACCION {
+        bigint id_transaccion PK
+        bigint id_equipo_fantasy FK
+        bigint id_jugador_real FK
+        string tipo "COMPRA | VENTA"
+        decimal precio
+        datetime fecha
+    }
+    MEJORA {
+        bigint id_mejora PK
+        string nombre "ej: Triple Kill"
+        string descripcion
+        decimal precio
+        int multiplicador_bono
+        string condicion "NUEVO: TRIPLE_KILL, MVP, KDA_MINIMO..."
+        decimal umbral "NUEVO"
+        boolean activa "NUEVO"
+    }
+    MEJORA_APLICADA {
+        bigint id_mejora_aplicada PK
+        bigint id_equipo_fantasy FK
+        bigint id_jugador_real FK
+        bigint id_mejora FK
+        bigint id_jornada FK
+        string estado "PENDIENTE | CUMPLIDA | FALLIDA"
+        decimal precio_pagado "NUEVO"
+        decimal puntos_extra "NUEVO"
+    }
+    JORNADA {
+        bigint id_jornada PK
+        string nombre "ej: Semana 1 - Spring Split"
+        date fecha_inicio
+        date fecha_fin
+        string estado "PROGRAMADA | EN_CURSO | FINALIZADA"
+        string fuente_overview "NUEVO, pagina de Leaguepedia"
+        datetime fecha_finalizacion "NUEVO"
+    }
+    PARTIDA_REAL {
+        bigint id_partida PK
+        bigint id_jornada FK
+        string id_externo "NUEVO, unico"
+        bigint id_equipo_azul FK "antes string"
+        bigint id_equipo_rojo FK "antes string"
+        bigint id_ganador FK "antes string"
+        int duracion_segundos
+        datetime fecha_hora
+    }
+    ESTADISTICA_JUGADOR_PARTIDA {
+        bigint id_estadistica PK
+        bigint id_partida FK
+        bigint id_jugador_real FK
+        bigint id_equipo_pro FK "NUEVO"
+        string campeon "NUEVO"
+        int kills
+        int deaths
+        int assists
+        int cs
+        int vision_score
+        int double_kills "NUEVO"
+        int triple_kills
+        int quadra_kills
+        int penta_kills
+        boolean first_blood
+        boolean victoria "NUEVO"
+        boolean mvp
+        decimal puntos_fantasy
+    }
+    PUNTUACION_JORNADA {
+        bigint id_puntuacion PK
+        bigint id_equipo_fantasy FK
+        bigint id_jornada FK
+        decimal puntos_base
+        decimal puntos_mejoras
+        decimal puntos_totales
+    }
+    NOTICIA {
+        bigint id_noticia PK
+        string titulo
+        string resumen
+        string contenido
+        string imagen_url
+        bigint id_autor FK
+        boolean publicada
+        datetime fecha_publicacion
+    }
+    REPORTE {
+        bigint id_reporte PK
+        bigint id_reportador FK
+        bigint id_reportado FK
+        string motivo
+        string descripcion
+        string estado "PENDIENTE | RESUELTO | DESCARTADO"
+        datetime fecha
+        bigint id_admin FK
+        string resolucion
+        datetime fecha_resolucion
+    }
+    BANEO {
+        bigint id_baneo PK
+        bigint id_usuario FK
+        bigint id_admin FK
+        datetime inicio
+        datetime fin "null = permanente"
+        string motivo
+        string comentario
+        boolean notificado
+        datetime revocado_en
+    }
+    REGISTRO_ACTIVIDAD {
+        bigint id_actividad PK
+        bigint id_admin FK
+        string admin_nombre
+        string tipo
+        string descripcion
+        datetime fecha
+    }
+    PASSWORD_RESET_TOKEN {
+        bigint id_token PK
+        bigint id_usuario FK
+        string token_hash "SHA-256"
+        datetime expira
+        boolean usado
+    }
+
+    USUARIO ||--o{ GRUPO_LIGA : crea
+    USUARIO ||--o{ EQUIPO_FANTASY : posee
+    GRUPO_LIGA ||--o{ EQUIPO_FANTASY : alberga
+    EQUIPO_PRO |o--o{ USUARIO : "es favorito de"
+    EQUIPO_PRO |o--o{ JUGADOR_REAL : "tiene en plantilla"
+    JUGADOR_REAL ||--o{ PLANTILLA_JUGADOR : forma_parte_de
+    EQUIPO_FANTASY ||--o{ PLANTILLA_JUGADOR : contiene
+    JUGADOR_REAL ||--o{ TRANSACCION : involucrado_en
+    EQUIPO_FANTASY ||--o{ TRANSACCION : ejecuta
+    JUGADOR_REAL ||--o{ MEJORA_APLICADA : recibe_efecto
+    EQUIPO_FANTASY ||--o{ MEJORA_APLICADA : activa
+    MEJORA ||--o{ MEJORA_APLICADA : definida_por
+    JORNADA ||--o{ MEJORA_APLICADA : evalua_mejora_en
+    JORNADA ||--o{ PARTIDA_REAL : agrupa
+    EQUIPO_PRO |o--o{ PARTIDA_REAL : juega
+    PARTIDA_REAL ||--o{ ESTADISTICA_JUGADOR_PARTIDA : registra
+    JUGADOR_REAL ||--o{ ESTADISTICA_JUGADOR_PARTIDA : genera
+    EQUIPO_FANTASY ||--o{ PUNTUACION_JORNADA : puntua
+    JORNADA ||--o{ PUNTUACION_JORNADA : "se puntua en"
+    USUARIO |o--o{ NOTICIA : publica
+    USUARIO ||--o{ REPORTE : "reporta / es reportado"
+    USUARIO ||--o{ BANEO : recibe
+    USUARIO |o--o{ REGISTRO_ACTIVIDAD : realiza
+    USUARIO ||--o{ PASSWORD_RESET_TOKEN : solicita
