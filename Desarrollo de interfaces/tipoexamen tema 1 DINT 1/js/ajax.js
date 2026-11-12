@@ -1,6 +1,6 @@
 "use strict";
-
-const rutaBackend = "http://localhost/examen/backend/";
+//poner la ruta que estamos usando hacia el php
+const rutaBackend = "http://localhost/dam2/DAM2/Desarrollo%20de%20interfaces/php";
 
 /**
  * Realiza peticiones AJAX de tipo GET

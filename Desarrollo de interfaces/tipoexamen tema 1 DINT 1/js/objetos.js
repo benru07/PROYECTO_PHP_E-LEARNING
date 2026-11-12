@@ -2,101 +2,113 @@
 
 // Codificar aquí las clases
 class genero {
+
+    #idgenero;
+    #genero;
+
     constructor(idgenero, genero) {
-        this._idgenero = idgenero;
-        this._genero = genero;
+        this.#idgenero = idgenero;
+        this.#genero = genero;
     }
 
     get idgenero(){
-        return this._idgenero;
+        return this.#idgenero;
     }
 
     set idgenero(idgenero){
-        this._idgenero = idgenero;
+        this.#idgenero = idgenero;
     }
 
     get genero(){
-        return this._genero;
+        return this.#genero;
     }
 
     set genero(genero){
-        this._genero = genero;
+        this.#genero = genero;
     }
 
     toJSON(){
         return{
-            idgenero: this._idgenero,
-            genero: this._genero
+            idgenero: this.#idgenero,
+            genero: this.#genero
         };
     }
 }
 
 class libro {
+
+    #idlibro;
+    #idgenero;
+    #titulo;
+    #autor;
+    #descripcion;
+    #imagen;
+
     constructor(idlibro, idgenero, titulo, autor, descripcion, imagen) {
-        this._idlibro = idlibro;
-        this._idgenero = idgenero;
-        this._titulo = titulo;
-        this._autor = autor;
-        this._descripcion = descripcion;
-        this._imagen = imagen;
+        this.#idlibro = idlibro;
+        this.#idgenero = idgenero;
+        this.#titulo = titulo;
+        this.#autor = autor;
+        this.#descripcion = descripcion;
+        this.#imagen = imagen;
     }
 
     get idlibro(){
-        return this._idlibro;
+        return this.#idlibro;
     }
 
     set idlibro(idlibro){
-        this._idlibro = idlibro;
+        this.#idlibro = idlibro;
     }
 
     get idgenero(){
-        return this._idgenero;
+        return this.#idgenero;
     }
 
     set idgenero(idgenero){
-        this._idgenero = idgenero;
+        this.#idgenero = idgenero;
     }
 
     get titulo(){
-        return this._titulo;
+        return this.#titulo;
     }
 
     set titulo(titulo){
-        this._titulo = titulo;
+        this.#titulo = titulo;
     }
 
     get autor(){
-        return this._autor;
+        return this.#autor;
     }
 
     set autor(autor){
-        this._autor = autor;
+        this.#autor = autor;
     }
 
     get descripcion(){
-        return this._descripcion;
+        return this.#descripcion;
     }
 
     set descripcion(descripcion){
-        this._descripcion = descripcion;
+        this.#descripcion = descripcion;
     }
 
     get imagen(){
-        return this._imagen;
+        return this.#imagen;
     }
 
     set imagen(imagen){
-        this._imagen = imagen;
+        this.#imagen = imagen;
     }
 
     toJSON(){
         return{
-            idlibro: this._idlibro,
-            idgenero: this._idgenero,
-            titulo: this._titulo,
-            autor: this._autor,
-            descripcion: this._descripcion,
-            imagen: this._imagen
+            idlibro: this.#idlibro,
+            idgenero: this.#idgenero,
+            titulo: this.#titulo,
+            autor: this.#autor,
+            descripcion: this.#descripcion,
+            imagen: this.#imagen
         };
     }
 }
@@ -141,23 +153,22 @@ class respuesta {
     }
 }
 
-class GestorNotas {
+class Librerria {
 
-    function crearLibro(oLibro) {
-        fetch("php/crear_libro.php")
+    async crearLibro(oLibro) {
+        /*fetch("php/crear_libro.php")
 
-        return oRespuesta = new respuesta("ok","mensaje","datos")
+        return oRespuesta = new respuesta("ok","mensaje","datos")*/
     }
 
-    function getLibrosGenero(idgenero){
-        fetch("php/get_libros_genero.php")
+    async getLibrosGenero(idgenero){
+        /*fetch("php/get_libros_genero.php")
 
-        return oRespuesta = new respuesta("ok","mensaje","datos")
+        return oRespuesta = new respuesta("ok","mensaje","datos")*/
     }
 
-    function getGeneros(){
-        fetch("php/get_generos.php")
-
-        return oRespuesta = new respuesta("ok","mensaje","datos")
+    async getGeneros(){
+        //para las peticiones php solo tengo que ir al repositorio de dit  DINT_OPT0/PHP/app_bd_hlc
+        return await peticionGET("get_generos.php" , new FormData());
     }
 }
