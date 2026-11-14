@@ -2,7 +2,7 @@
 session_start();
 $idcategoria = $_SESSION["idcategoria"];
 
-require_once("funcionesBD.php");
+require_once("config.php");
 $conexion = obtenerConexion();
 
 $nombre = $_POST['txtNombre'];
