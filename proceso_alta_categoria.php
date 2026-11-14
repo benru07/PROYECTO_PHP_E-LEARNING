@@ -19,7 +19,7 @@ if (mysqli_errno($conexion) != 0) {
     $descrerror = mysqli_error($conexion);
     $mensaje =  "<h2 class='text-center mt-5'>Se ha producido un error numero $numerror que corresponde a: $descrerror </h2>";
 } else {
-    $mensaje =  "<h2 class='text-center mt-5'>Componente insertado</h2>";
+    $mensaje =  "<h2 class='text-center mt-5'>Categoria insertado</h2>";
 }
 
 
