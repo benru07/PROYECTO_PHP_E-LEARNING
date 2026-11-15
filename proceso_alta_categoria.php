@@ -24,7 +24,10 @@ if (mysqli_errno($conexion) != 0) {
 
 
 
+
 include_once("cabecera.html");
 
+echo $mensaje;
 
+header("refresh:5;url=index.php");
 ?>

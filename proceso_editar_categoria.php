@@ -16,8 +16,8 @@ if ($idcategoria != $idcategoria) {
     $mensaje =  "<h2 class='text-center mt-5'>idcategoria incorrecto</h2>";
 
 } else {
-    $sql = "UPDATE categorias SET  	nombre = '" .$nombre. "', descripcion = '" .$descripcion. "', orden = " .$orden. ", activa = " .$activa. " 
-    WHERE id = " .$idcategoria;
+    $sql = "UPDATE categorias SET  	nombre = '" .$nombre. "', descripcion = '" .$descripcion. "', orden = '" .$orden. "', activa = '" .$activa. "' 
+    WHERE id = '" .$idcategoria. "'";
 
     $resultado = mysqli_query($conexion, $sql);
 
@@ -38,3 +38,4 @@ include_once("cabecera.html");
 
 // Mostrar mensaje calculado antes
 echo $mensaje;
+?>

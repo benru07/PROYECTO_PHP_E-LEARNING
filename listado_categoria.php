@@ -2,7 +2,7 @@
 require_once('config.php');
 $conexion = obtenerConexion();
 
-$sql = "SELECT * FROM `categorias` ORDER BY id ASC;";
+$sql = "SELECT * FROM `categorias` ORDER BY orden ASC;";
 
 $resultado = mysqli_query($conexion, $sql);
 
@@ -31,7 +31,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
     $mensaje .= "<input type='hidden' name='categoria' value='" . htmlspecialchars(json_encode($fila), ENT_QUOTES) . "' />";
     $mensaje .= "<button name='Editar' class='btn btn-primary'><i class='bi bi-pencil-square'></i></button></form>";
 
-    $mensaje .= "<form class='d-inline' action='proceso_borrar_categoria.php' method='post'>";
+    $mensaje .= "<form class='d-inline' action='proceso_borrar_categoria.php' method='post' onsubmit=\"return confirm('¿Estás seguro de que quieres eliminar esta categoría?')\">";
     $mensaje .= "<input type='hidden' name='idcategoria' value='" . $fila['id']  . "' />";
     $mensaje .= "<button name='Borrar' class='btn btn-danger'><i class='bi bi-trash'></i></button></form>";
 
@@ -44,3 +44,5 @@ $mensaje .= "</tbody></table>";
 include_once("cabecera.html");
 
 echo $mensaje;
+
+?>

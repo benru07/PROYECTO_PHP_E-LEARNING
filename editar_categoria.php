@@ -52,7 +52,7 @@ include_once("cabecera.html");
                     </label>
                 </div>
 
-                <input value="<?php echo $categoria['idcategoria']?>" type='hidden' name='idcategoria' id='idcategoria' />
+                <input value="<?php echo $categoria['id']?>" type='hidden' name='idcategoria' id='idcategoria' />
 
                 <!-- Button -->
                 <div class="form-group">
