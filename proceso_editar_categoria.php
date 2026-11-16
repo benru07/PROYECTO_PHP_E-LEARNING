@@ -10,13 +10,15 @@ $descripcion = $_POST['txtDescripcion'];
 $orden = (int)$_POST['intorden'];
 $activa = isset($_POST['activa']) ? 1 : 0;
 $fecha_creacion = date('Y-m-d');
+$dificultad = $_POST['lstDificultades'];
 $idcategoria = $_POST['idcategoria'];
+
 
 if ($idcategoria != $idcategoria) {
     $mensaje =  "<h2 class='text-center mt-5'>idcategoria incorrecto</h2>";
 
 } else {
-    $sql = "UPDATE categorias SET  	nombre = '" .$nombre. "', descripcion = '" .$descripcion. "', orden = '" .$orden. "', activa = '" .$activa. "' 
+    $sql = "UPDATE categorias SET  	nombre = '" .$nombre. "', descripcion = '" .$descripcion. "', orden = '" .$orden. "', activa = '" .$activa. "', dificultad_id = '" .$dificultad. "' 
     WHERE id = '" .$idcategoria. "'";
 
     $resultado = mysqli_query($conexion, $sql);

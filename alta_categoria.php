@@ -2,6 +2,17 @@
 require_once('config.php');
 require_once('cabecera.html');
 
+$conexion = obtenerConexion();
+
+$sql = "SELECT id,nombre FROM dificultades;";
+
+$resultado = mysqli_query($conexion, $sql);
+
+$options = "";
+while ($fila = mysqli_fetch_assoc($resultado)) {
+    $options .= "<option value='{$fila['id']}'>" . htmlspecialchars($fila['nombre']) . "</option>";
+}
+
 ?>
 <div class="container" id="formularios">
     <div class="row">
@@ -31,6 +42,17 @@ require_once('cabecera.html');
                     <label class="col-xs-4 control-label" for="intorden">Orden</label>
                     <div class="col-xs-4">
                         <input id="intorden" name="intorden" placeholder="Orden" class="form-control input-md" type="number">
+                    </div>
+                </div>
+
+                <!-- Desplegable cargado desde la base de datos de las dificultades -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="lstDificultades">Dificultad</label>
+                    </label>
+                    <div class="col-xs-4">
+                        <select name="lstDificultades" id="lstDificultades" class="form-select" aria-label="Default select example">
+                            <?php echo $options; ?>
+                        </select>
                     </div>
                 </div>
 
