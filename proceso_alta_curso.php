@@ -1,38 +1,41 @@
 <?php
-require_once("funcionesBD.php");
+require_once('config.php');
 $conexion = obtenerConexion();
 
 // Recuperar parámetros
-$nombre = $_POST['txtNombre'];
+$idcategoria = $_POST['lstCategoria'];
+$titulo = $_POST['txtTitulo'];
 $descripcion = $_POST['txtDescripcion'];
-$precio = $_POST['txtPrecio'];
-$idtipo = $_POST['lstTipo'];
+$nivel = $_POST['lstNivel'];
+$duracion = (int) $_POST['intduracion'];
+$precio = (float) $_POST['decprecio'];
+$fecha_publicacion = $_POST['fecha'];
+$publicado = isset($_POST['publicado']) ? 1 : 0; // un checkbox solo se envía si está marcado
 
-// No validamos, suponemos que la entrada de datos es correcta
+// Consulta preparada: los datos nunca se concatenan en el SQL
+$sql = "INSERT INTO cursos (categoria_id, titulo, descripcion, nivel, duracion_horas, precio, publicado, fecha_publicacion)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-// Definir insert
-$sql = "INSERT INTO curso(`idcurso`, `nombre`, `descripcion`, `precio`, `idtipo`) 
-                VALUES (null,'" . $nombre . "', '" . $descripcion . "', $precio, $idtipo );";
+$stmt = mysqli_prepare($conexion, $sql);
+mysqli_stmt_bind_param($stmt, "isssidis", $idcategoria, $titulo, $descripcion, $nivel, $duracion, $precio, $publicado, $fecha_publicacion);
+mysqli_stmt_execute($stmt);
 
-// Ejecutar consulta
-$resultado = mysqli_query($conexion, $sql);
-
-// Verificar si hay error y almacenar mensaje
-if (mysqli_errno($conexion) != 0) {
-    $numerror = mysqli_errno($conexion);
-    $descrerror = mysqli_error($conexion);
+if (mysqli_stmt_errno($stmt) != 0) {
+    $numerror = mysqli_stmt_errno($stmt);
+    $descrerror = mysqli_stmt_error($stmt);
     $mensaje =  "<h2 class='text-center mt-5'>Se ha producido un error numero $numerror que corresponde a: $descrerror </h2>";
 } else {
     $mensaje =  "<h2 class='text-center mt-5'>Curso insertado</h2>";
 }
+
 // Redireccionar tras 5 segundos al index.
-// Siempre debe ir antes de DOCTYPE
+// Siempre debe ir antes de imprimir cualquier cosa (si no, el header no funciona)
 header("refresh:5;url=index.php");
 
-// Aquí empieza la página
 include_once("cabecera.html");
 
-// Mostrar mensaje calculado antes
-echo $mensaje;
-
+echo "<div class='container'>" . $mensaje . "</div>";
 ?>
+</body>
+
+</html>
