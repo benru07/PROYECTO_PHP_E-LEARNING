@@ -9,6 +9,13 @@ $_SESSION['idcategoria'] = $categoria['id'];
 require_once('config.php');
 $conexion = obtenerConexion();
 
+$sql = "SELECT id, nombre FROM dificultades ORDER BY id";
+$resultado = mysqli_query($conexion, $sql);
+$options = "";
+while ($dificultad = mysqli_fetch_assoc($resultado)) {
+    $selected = (int)$dificultad['id'] === (int)$categoria['dificultad_id'] ? ' selected' : '';
+    $options .= "<option value='" . (int)$dificultad['id'] . "'$selected>" . htmlspecialchars($dificultad['nombre'], ENT_QUOTES, 'UTF-8') . "</option>";
+}
 
 include_once("cabecera.html");
 
@@ -44,6 +51,17 @@ include_once("cabecera.html");
                     </div>
                 </div>
 
+                <!-- Desplegable cargado desde la base de datos de las dificultades -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="lstDificultades">Dificultad</label>
+                    </label>
+                    <div class="col-xs-4">
+                        <select name="lstDificultades" id="lstDificultades" class="form-select" aria-label="Default select example">
+                            <?php echo $options; ?>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- ACTIVA -->
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="activa" value="1" id="activa" <?php if ($categoria['activa'] == 1) echo 'checked'; ?>>
@@ -52,7 +70,7 @@ include_once("cabecera.html");
                     </label>
                 </div>
 
-                <input value="<?php echo $categoria['id']?>" type='hidden' name='idcategoria' id='idcategoria' />
+                <input value="<?php echo $categoria['id'] ?>" type='hidden' name='idcategoria' id='idcategoria' />
 
                 <!-- Button -->
                 <div class="form-group">

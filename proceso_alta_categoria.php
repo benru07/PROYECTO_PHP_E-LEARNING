@@ -8,9 +8,10 @@ $descripcion = $_POST['txtDescripcion'];
 $orden = (int)$_POST['intorden'];
 $activa = isset($_POST['activa']) ? 1 : 0;
 $fecha_creacion = date('Y-m-d');
+$dificultad = $_POST['lstDificultades'];
 
-$sql = "INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `orden`, `activa`, `fecha_creacion`) 
-                        VALUES (NULL, '$nombre', '$descripcion', '$orden', '$activa', '$fecha_creacion')";
+$sql = "INSERT INTO `categorias` (`id`, `nombre`, `descripcion`, `orden`, `activa`, `fecha_creacion`, `dificultad_id`) 
+                        VALUES (NULL, '$nombre', '$descripcion', '$orden', '$activa', '$fecha_creacion', '$dificultad')";
 
 $consulta = mysqli_query($conexion, $sql);
 

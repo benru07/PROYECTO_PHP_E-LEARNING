@@ -17,6 +17,26 @@ DROP DATABASE IF EXISTS learnova;
 CREATE DATABASE learnova CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE learnova;
 
+
+
+-- ---------------------------------------------------------------------
+-- dificultades: catálogo para el desplegable de categorías.
+-- Cada categoría tiene UNA dificultad (relación 1:N).
+-- ---------------------------------------------------------------------
+CREATE TABLE dificultades (
+    id          INT          NOT NULL AUTO_INCREMENT,
+    nombre      VARCHAR(30)  NOT NULL,
+    descripcion VARCHAR(255) NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_dificultades_nombre (nombre)
+) ENGINE=InnoDB;
+
+INSERT INTO dificultades (nombre, descripcion) VALUES
+    ('Fácil',   'Sin conocimientos previos'),
+    ('Media',   'Requiere conocimientos básicos'),
+    ('Difícil', 'Requiere experiencia previa');
+
+
 -- ---------------------------------------------------------------------
 -- categorias: áreas de conocimiento
 -- ---------------------------------------------------------------------
@@ -24,11 +44,15 @@ CREATE TABLE categorias (
     id              INT          NOT NULL AUTO_INCREMENT,
     nombre          VARCHAR(60)  NOT NULL,                  -- nombre de la temática
     descripcion     VARCHAR(255) NULL,
+    dificultad_id   INT          NOT NULL DEFAULT 1,
     orden           INT          NOT NULL DEFAULT 0,        -- orden de aparición en los menús
     activa          TINYINT(1)   NOT NULL DEFAULT 1,
     fecha_creacion  DATE         NOT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY uq_categorias_nombre (nombre)
+    UNIQUE KEY uq_categorias_nombre (nombre),
+    KEY idx_categorias_dificultad (dificultad_id),
+    CONSTRAINT fk_categorias_dificultad FOREIGN KEY (dificultad_id)
+        REFERENCES dificultades (id) ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
@@ -96,17 +120,17 @@ CREATE TABLE lecciones (
 -- =====================================================================
 
 
-INSERT INTO categorias (nombre, descripcion, orden, activa, fecha_creacion) VALUES
-  ('Programación', 'Lenguajes, bases de datos y desarrollo de software', 1, 1, '2025-09-01'),
-  ('Diseño', 'Interfaces, experiencia de usuario y diseño gráfico', 2, 1, '2025-09-01'),
-  ('Idiomas', 'Inglés, preparación de exámenes oficiales y más', 3, 1, '2025-09-01'),
-  ('Marketing', 'Marketing digital, redes sociales y SEO', 4, 1, '2025-09-02'),
-  ('Negocios', 'Gestión empresarial, emprendimiento y finanzas', 5, 1, '2025-09-02'),
-  ('Otros', 'Cursos que no encajan en el resto de temáticas', 6, 1, '2025-09-03'),
-  ('Matemáticas', 'Álgebra, cálculo y estadística', 7, 1, '2025-09-10'),
-  ('Física', 'Mecánica, termodinámica y física cuántica', 8, 1, '2025-09-10'),
-  ('Ciencias', 'Ciencias naturales y experimentales', 9, 1, '2025-09-15'),
-  ('Historia', 'Historia universal y de España', 10, 0, '2025-09-15');
+INSERT INTO categorias (nombre, descripcion, dificultad_id, orden, activa, fecha_creacion) VALUES
+    ('Programación', 'Lenguajes, bases de datos y desarrollo de software', 2, 1, 1, '2025-09-01'),
+    ('Diseño', 'Interfaces, experiencia de usuario y diseño gráfico', 1, 2, 1, '2025-09-01'),
+    ('Idiomas', 'Inglés, preparación de exámenes oficiales y más', 1, 3, 1, '2025-09-01'),
+    ('Marketing', 'Marketing digital, redes sociales y SEO', 1, 4, 1, '2025-09-02'),
+    ('Negocios', 'Gestión empresarial, emprendimiento y finanzas', 2, 5, 1, '2025-09-02'),
+    ('Otros', 'Cursos que no encajan en el resto de temáticas', 1, 6, 1, '2025-09-03'),
+    ('Matemáticas', 'Álgebra, cálculo y estadística', 2, 7, 1, '2025-09-10'),
+    ('Física', 'Mecánica, termodinámica y física cuántica', 3, 8, 1, '2025-09-10'),
+    ('Ciencias', 'Ciencias naturales y experimentales', 2, 9, 1, '2025-09-15'),
+    ('Historia', 'Historia universal y de España', 1, 10, 0, '2025-09-15');
 
 INSERT INTO cursos (categoria_id, titulo, descripcion, nivel, duracion_horas, precio, publicado, fecha_publicacion) VALUES
   (1, 'JAVA con Fabio', 'Java desde cero: sintaxis, POO y colecciones.', 'intermedio', 10, 99.99, 1, '2025-10-01'),
