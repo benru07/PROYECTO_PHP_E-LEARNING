@@ -11,7 +11,7 @@ function mostrarListadoLecciones($resultado, $encabezado, $sinResultados)
     }
 
     echo "<div class='table-responsive'><table class='table table-striped'>";
-    echo "<thead><tr><th>ID</th><th>TÍTULO</th><th>RECURSO</th><th>DURACIÓN</th><th>ORDEN</th><th>MÓDULO</th><th>CURSO</th><th>GRATUITA</th><th>FECHA DE PUBLICACIÓN</th></tr></thead><tbody>";
+    echo "<thead><tr><th>ID</th><th>TÍTULO</th><th>RECURSO</th><th>DURACIÓN</th><th>ORDEN</th><th>MÓDULO</th><th>CURSO</th><th>GRATUITA</th><th>FECHA DE PUBLICACIÓN</th><th>ACCIONES</th></tr></thead><tbody>";
 
     while ($fila = mysqli_fetch_assoc($resultado)) {
         echo "<tr>";
@@ -33,6 +33,12 @@ function mostrarListadoLecciones($resultado, $encabezado, $sinResultados)
         echo "<td>" . htmlspecialchars($fila['curso_titulo'], ENT_QUOTES, 'UTF-8') . "</td>";
         echo "<td class='" . ((int)$fila['gratuita'] === 1 ? 'table-success' : 'table-danger') . "'>" . ((int)$fila['gratuita'] === 1 ? 'Sí' : 'No') . "</td>";
         echo "<td>" . htmlspecialchars($fila['fecha_publicacion'], ENT_QUOTES, 'UTF-8') . "</td>";
+        echo "<td class='text-nowrap'>";
+        echo "<a class='btn btn-sm btn-primary me-1' href='editar_leccion.php?id=" . (int)$fila['leccion_id'] . "'>Editar</a>";
+        echo "<form class='d-inline' action='proceso_borrar_leccion.php' method='post' onsubmit=\"return confirm('¿Seguro que quieres borrar esta lección?');\">";
+        echo "<input type='hidden' name='id' value='" . (int)$fila['leccion_id'] . "'>";
+        echo "<button type='submit' class='btn btn-sm btn-danger'>Borrar</button>";
+        echo "</form></td>";
         echo "</tr>";
     }
 
