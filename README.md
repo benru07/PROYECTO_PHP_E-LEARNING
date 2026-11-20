@@ -1,5 +1,4 @@
 # PROYECTO_PHP_E-LEARNING
-
 # Enlace a GitHub:
 https://github.com/benru07/PROYECTO_PHP_E-LEARNING
 
@@ -7,6 +6,8 @@ https://github.com/benru07/PROYECTO_PHP_E-LEARNING
 
 
 # Datos para la conexión a la base de datos (nombre de la base de datos, usuario y password):
+("db", "root", "root_dev_123", "learnova","3306")
+('host', 'usuario', 'contraseña', "data-base","puerto")
 
 # Encargado del apartado categorías: José Manuel Gamarro
 # Encargado del apartado cursos: Rubén Ataide Gómez
