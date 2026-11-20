@@ -13,9 +13,9 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP DATABASE IF EXISTS learnova;
-CREATE DATABASE learnova CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE learnova;
+-- DROP DATABASE IF EXISTS learnova;
+-- CREATE DATABASE learnova CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- USE learnova;
 
 
 
