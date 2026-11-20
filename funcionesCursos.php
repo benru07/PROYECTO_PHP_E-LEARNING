@@ -6,7 +6,7 @@
  * Se consulta la base de datos cada vez que se carga la página, así que cualquier categoría
  * nueva aparece automáticamente en la lista desplegable.
  *
- * $campo       : columna que se usa como value del option ('id' o 'nombre')
+ * $campo: columna que se usa como value del option ('id' o 'nombre')
  * $seleccionado: valor que debe aparecer seleccionado (opcional)
  */
 function opcionesCategorias($conexion, $campo = "id", $seleccionado = null)
