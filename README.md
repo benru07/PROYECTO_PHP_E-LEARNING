@@ -3,7 +3,7 @@
 https://github.com/benru07/PROYECTO_PHP_E-LEARNING
 
 # Enlace al alojamiento web:
-
+https://cursos-php-trabajo.free.nf/index.php
 
 # Datos para la conexión a la base de datos (nombre de la base de datos, usuario y password):
 ("db", "root", "root_dev_123", "learnova","3306")
