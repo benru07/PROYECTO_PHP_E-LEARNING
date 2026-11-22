@@ -1,0 +1,19 @@
+EXAMEN UD1 (21/11/2024) - LIBRERIA - PROYECTO RESUELTO Y COMENTADO
+==================================================================
+Cada apartado esta marcado con un comentario "APARTADO ..." en el codigo:
+
+  js/objetos.js            Apartado A   (clases Libro, Genero, Libreria)
+  js/codigo.js             Apartado B.1 (formularios y desplegables)
+                           Apartado B.2 (crear libro)
+                           Apartado B.3 (abrir pestana con el listado)
+  tarjetas.html            Apartado B.3 (pedir libros y pintar tarjetas)
+  tarjetas_apartado_c.html Apartado C   (tarjetas estaticas del Excel, 3 layouts)
+  js/ajax.js               Viene en la plantilla; solo se ajusta rutaBackend
+  php/ + sql/              Backend de la solucion (sin cambios)
+
+Para probarlo:
+ 1. Importa sql/libreria.sql en MySQL y revisa php/config.php (servidor, usuario, password).
+ 2. Copia la carpeta al servidor web (Apache/XAMPP/Docker) y ajusta rutaBackend en js/ajax.js.
+ 3. Abre http://localhost/<carpeta>/index.html (no file://, para evitar CORS).
+
+Nota: la clase gestora se llama Libreria (como en la solucion); el enunciado dice GestorNotas.

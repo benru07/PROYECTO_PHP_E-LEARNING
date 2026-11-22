@@ -1,0 +1,80 @@
+# Configuración por defecto (local). En Railway todo se sobrescribe con variables de entorno.
+spring:
+  application:
+    name: lec-fantasy
+  datasource:
+    url: ${DB_URL:jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQLDATABASE:lecfantasy}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8}
+    username: ${MYSQLUSER:lec}
+    password: ${MYSQLPASSWORD:lec}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none   # el esquema lo gestiona Flyway (src/main/resources/db/migration)
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 200MB     # el CSV anual de Oracle's Elixir pesa ~100 MB
+      max-request-size: 200MB
+  jackson:
+    default-property-inclusion: always
+
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+  error:
+    include-message: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:clave-de-desarrollo-cambiala-en-produccion-0123456789}
+    expiracion-horas: 12
+    expiracion-recordarme-dias: 30
+  google:
+    client-ids: ${GOOGLE_CLIENT_IDS:}
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://127.0.0.1:5173}
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  admin:
+    email: ${ADMIN_EMAIL:}
+    password: ${ADMIN_PASSWORD:}
+    nombre: ${ADMIN_NOMBRE:admin}
+  juego:
+    valor-inicial-jugador: 8000000
+    presupuesto-liga-global: 50000000
+    edad-minima: 14
+  mail:
+    from: ${MAIL_FROM:LEC Fantasy <no-reply@lecfantasy.app>}
+  leaguepedia:
+    url: https://lol.fandom.com/api.php
+    user-agent: LECFantasyTFG/1.0 (proyecto de fin de grado)
+  # Jornadas automáticas con Leaguepedia (ver service/AutomatizacionJornadas.java).
+  # Cron de Spring: segundo minuto hora día mes día-de-la-semana.
+  automatizacion:
+    habilitada: ${AUTOMATIZACION_HABILITADA:true}
+    zona: Europe/Madrid
+    cron-inicio: ${AUTOMATIZACION_CRON_INICIO:0 5 * * * *}             # cada hora, a y 5
+    cron-importacion: ${AUTOMATIZACION_CRON_IMPORTACION:0 0 9 * * MON} # los lunes a las 9:00
+    cron-calendario: ${AUTOMATIZACION_CRON_CALENDARIO:0 30 8 * * *}    # cada día a las 8:30 (PandaScore)
+    finalizar: ${AUTOMATIZACION_FINALIZAR:true}
+  # Calendario de la LEC (crear jornadas y próximos partidos). La key va SOLO en la variable de entorno.
+  pandascore:
+    url: https://api.pandascore.co
+    token: ${PANDASCORE_TOKEN:}
+    liga-id: ${PANDASCORE_LIGA_ID:}
+    liga-nombre: LEC
+    dias-calendario: 21

@@ -1,0 +1,41 @@
+# Entorno local completo: MySQL 8 + backend.  Uso:  docker compose up --build
+# La key de PandaScore va en un archivo .env junto a este (PANDASCORE_TOKEN=...), nunca aquí.
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: lecfantasy
+      MYSQL_USER: lec
+      MYSQL_PASSWORD: lec
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-plec", "-ulec"]
+      interval: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQLHOST: mysql
+      MYSQLPORT: 3306
+      MYSQLDATABASE: lecfantasy
+      MYSQLUSER: lec
+      MYSQLPASSWORD: lec
+      JWT_SECRET: clave-local-de-desarrollo-con-mas-de-32-caracteres
+      ADMIN_EMAIL: admin@lecfantasy.local
+      ADMIN_PASSWORD: admin12345
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+      # Key de PandaScore: se lee del archivo .env de esta carpeta (no se sube a git) o de la consola
+      PANDASCORE_TOKEN: ${PANDASCORE_TOKEN:-}
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql-data:

@@ -18,8 +18,12 @@ if ($idcategoria != $idcategoria) {
 
     if (mysqli_errno($conexion) != 0) {
         $numerror = mysqli_errno($conexion);
-        $descrerror = mysqli_error($conexion);
-        $mensaje =  "<h2 class='text-center mt-5'>Se ha producido un error numero $numerror que corresponde a: $descrerror </h2>";
+        if ($numerror == 1451) {
+            $mensaje = "<h2 class='text-center mt-5'>La categoría tiene registros asignados. Debes borrarlos antes de eliminarla.</h2>";
+        } else {
+            $descrerror = mysqli_error($conexion);
+            $mensaje =  "<h2 class='text-center mt-5'>Se ha producido un error numero $numerror que corresponde a: $descrerror </h2>";
+        }
     } else {
         $mensaje =  "<h2 class='text-center mt-5'>Categoria eliminada</h2>";
     }

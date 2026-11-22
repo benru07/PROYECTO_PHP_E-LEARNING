@@ -23,9 +23,6 @@ if (mysqli_errno($conexion) != 0) {
     $mensaje =  "<h2 class='text-center mt-5'>Módulo insertado</h2>";
 }
 
-
-
-
 include_once("cabecera.html");
 
 echo $mensaje;

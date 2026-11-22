@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Sin Bootstrap enlazado las clases col-* no hacen nada -->
+    <link href="bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet">
+    <title>Tarjetas</title>
+</head>
+
+<body>
+    <!-- =====================================================================
+         APARTADO C (2 puntos): 8 tarjetas (minimo 6) con los datos de "Datos libreria.xlsx".
+         Layouts con clases de Bootstrap (mobile first: cada sufijo sobrescribe desde ese ancho):
+           col-12     -> XS y superior: una tarjeta por fila (apiladas)
+           col-md-4   -> MD (>=768px):  12/4 = 3 tarjetas por fila
+           col-lg-3   -> LG (>=992px):  12/3 = 4 tarjetas por fila
+         Estructura obligatoria: .container-fluid > .row > .col-* > .card
+         (Alternativa equivalente: <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4">)
+         Comprobacion: F12 -> modo responsive a ~400px, ~800px y ~1200px
+         (en capturas/ estan las imagenes de referencia).
+         ===================================================================== -->
+    <div class="container-fluid">
+        <h1 class="text-center mb-3">LISTADO DE LIBROS</h1>
+        <div class="row">
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/81YOuOGFCJL.jpg" class="card-img-top" alt="Harry Potter y la piedra filosofal">
+                    <div class="card-body">
+                        <h5 class="card-title">Harry Potter y la piedra filosofal</h5>
+                        <p class="fw-light text-muted mb-1">J.K. Rowling</p>
+                        <p class="fw-light text-muted mb-1">Juvenil</p>
+                        <p class="card-text">Un joven descubre que es un mago y comienza su aventura en Hogwarts.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://m.media-amazon.com/images/I/71HqC9TzbWL._SL1000_.jpg" class="card-img-top" alt="Orgullo y Prejuicio">
+                    <div class="card-body">
+                        <h5 class="card-title">Orgullo y Prejuicio</h5>
+                        <p class="fw-light text-muted mb-1">Jane Austen</p>
+                        <p class="fw-light text-muted mb-1">Romántico</p>
+                        <p class="card-text">Una historia de amor y malentendidos en la Inglaterra del siglo XIX.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/91SZSW8qSsL.jpg" class="card-img-top" alt="1984">
+                    <div class="card-body">
+                        <h5 class="card-title">1984</h5>
+                        <p class="fw-light text-muted mb-1">George Orwell</p>
+                        <p class="fw-light text-muted mb-1">Ciencia ficción</p>
+                        <p class="card-text">Un mundo distópico dominado por un régimen totalitario.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://m.media-amazon.com/images/I/71lmSb-IajL._SL1500_.jpg" class="card-img-top" alt="El Gran Gatsby">
+                    <div class="card-body">
+                        <h5 class="card-title">El Gran Gatsby</h5>
+                        <p class="fw-light text-muted mb-1">F. Scott Fitzgerald</p>
+                        <p class="fw-light text-muted mb-1">Novela</p>
+                        <p class="card-text">La obsesión de un hombre por el sueño americano y su amor perdido</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://m.media-amazon.com/images/I/81jkb6N9+QL._SL1500_.jpg" class="card-img-top" alt="El señor de los anillos">
+                    <div class="card-body">
+                        <h5 class="card-title">El señor de los anillos</h5>
+                        <p class="fw-light text-muted mb-1">J.R.R. Tolkien</p>
+                        <p class="fw-light text-muted mb-1">Ficción épica</p>
+                        <p class="card-text">La épica lucha entre el bien y el mal en la Tierra Media.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://m.media-amazon.com/images/I/A1lNJP8sC6L._SL1500_.jpg" class="card-img-top" alt="Cien años de soledad">
+                    <div class="card-body">
+                        <h5 class="card-title">Cien años de soledad</h5>
+                        <p class="fw-light text-muted mb-1">Gabriel García Márquez</p>
+                        <p class="fw-light text-muted mb-1">Novela</p>
+                        <p class="card-text">La historia mágica y trágica de la familia Buendía en Macondo.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://m.media-amazon.com/images/I/61-D06GIMQL._SL1330_.jpg" class="card-img-top" alt="Don Quijote de la Mancha">
+                    <div class="card-body">
+                        <h5 class="card-title">Don Quijote de la Mancha</h5>
+                        <p class="fw-light text-muted mb-1">Miguel de Cervantes</p>
+                        <p class="fw-light text-muted mb-1">Novela</p>
+                        <p class="card-text">Un hidalgo pierde la cordura e inicia aventuras como caballero andante.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 mb-3">
+                <div class="card h-100" style="width: 15rem;">
+                    <img src="https://m.media-amazon.com/images/I/714Hvb52n-L._SL1500_.jpg" class="card-img-top" alt="El Principito">
+                    <div class="card-body">
+                        <h5 class="card-title">El Principito</h5>
+                        <p class="fw-light text-muted mb-1">Antoine de Saint-Exupéry</p>
+                        <p class="fw-light text-muted mb-1">Juvenil</p>
+                        <p class="card-text">Un viaje poético sobre la vida, la amistad y el amor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="bootstrap/bootstrap.min.js"></script>
+</body>
+
+</html>
