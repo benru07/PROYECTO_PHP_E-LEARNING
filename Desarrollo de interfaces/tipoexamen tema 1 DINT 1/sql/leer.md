@@ -1,1 +1,0 @@
-<!--entra al phpmyAdmin, le das a crear una nueva, y le das a importat y entras a la carpeta de sql e importas el sql -->
